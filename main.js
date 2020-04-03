@@ -6,6 +6,7 @@ let score;
 let highScore;
 let player;
 let gravity;
+let obsticles = [];
 let gameSpeed;
 let keys = {};
 
@@ -145,12 +146,30 @@ function Start() {
   requestAnimationFrame(Update);
 }
 
-
+let initialSpawnTimer = 200;
+let spawnTimer = initialSpawnTimer;
 
 function Update() {
   requestAnimationFrame(Update);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  spawnTimer--;
+  if (spawnTimer <= 0) {
+    SpawnObstacle();
+    console.log(obstacle());
+    spawnTimer = initialSpawnTimer - gameSpeed * 8;
+
+    if (spawnTimer < 60) {
+      spawnTimer = 60;
+    }
+  }
+
+  //spawn enimies 
+
+  for ( let i = 0; i < obstacles.length; i++) {
+    let o = obstacles[i]
+    o.Update()
+  }
   player.Animate();
   player.x++;
 }
