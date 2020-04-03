@@ -194,11 +194,17 @@ function Update() {
 
   for (let i = 0; i < obstacles.length; i++) {
     let o = obstacles[i];
+    // deletes obsticles as they leave the screen
+    if (o.x + o.width < 0) {
+        obstacles.splice(i, 1)
+    }
+
     o.Update();
   }
   player.Animate();
 
   score++;
+  scoreText.text = "Score: " + score;
   scoreText.Draw()
 
   gameSpeed += 0.003;
