@@ -164,14 +164,15 @@ function Update() {
     }
   }
 
-  //spawn enimies 
+  //spawn enimies
 
-  for ( let i = 0; i < obstacles.length; i++) {
-    let o = obstacles[i]
-    o.Update()
+  for (let i = 0; i < obstacles.length; i++) {
+    let o = obstacles[i];
+    o.Update();
   }
   player.Animate();
-  player.x++;
+
+  gameSpeed += 0.003;
 }
 
 Start();
