@@ -3,6 +3,8 @@ const ctx = canvas.getContext("2d");
 
 // variables
 let score;
+let scoreText;
+let highScoreText;
 let highScore;
 let player;
 let gravity;
@@ -113,6 +115,16 @@ class Text {
     this.colour = colour;
     this.size = size;
   }
+
+  Draw() {
+      ctx.beginPath()
+      ctx.fillStyle = this.colour
+      ctx.font = this.size + "px sans-serif"
+      ctx.textAlign = this.alignment;
+      ctx.fillText(this.text, this.x, this.y)
+      ctx.closePath()
+
+  }
 }
 
 // game functions
@@ -154,6 +166,9 @@ function Start() {
   player = new Player(25, 0, 50, 50, "#FF5858");
   player.Draw();
 
+  scoreText = new Text("Score: " score, 25, 25, "left", "#212121", "20")
+
+
   requestAnimationFrame(Update);
 }
 
@@ -184,6 +199,7 @@ function Update() {
   player.Animate();
 
   score++;
+  scoreText.Draw()
 
   gameSpeed += 0.003;
 }
