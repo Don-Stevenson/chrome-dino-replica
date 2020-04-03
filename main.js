@@ -161,6 +161,11 @@ function Start() {
 
   score = 0;
   highScore = 0;
+}
+ // handle highscore storage 
+if (localStorage.getItem('highscore')) {
+      highScore = localStorage.getItem('higscore')
+  }
 
   player = new Player(25, 0, 50, 50, "#FF5858");
   player.Draw();
