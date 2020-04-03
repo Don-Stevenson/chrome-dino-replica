@@ -104,6 +104,17 @@ class Obstacle {
   }
 }
 
+class Text {
+  constructor(text, x, y, alignment, colour, size) {
+    this.t = text;
+    this.x = x;
+    this.y = y;
+    this.alignment = alignment;
+    this.colour = colour;
+    this.size = size;
+  }
+}
+
 // game functions
 function SpawnObstacle() {
   let size = RandomIntInRange(20, 70);
@@ -171,6 +182,8 @@ function Update() {
     o.Update();
   }
   player.Animate();
+
+  score++;
 
   gameSpeed += 0.003;
 }
