@@ -117,13 +117,12 @@ class Text {
   }
 
   Draw() {
-      ctx.beginPath()
-      ctx.fillStyle = this.colour
-      ctx.font = this.size + "px sans-serif"
-      ctx.textAlign = this.alignment;
-      ctx.fillText(this.text, this.x, this.y)
-      ctx.closePath()
-
+    ctx.beginPath();
+    ctx.fillStyle = this.colour;
+    ctx.font = this.size + "px sans-serif";
+    ctx.textAlign = this.alignment;
+    ctx.fillText(this.text, this.x, this.y);
+    ctx.closePath();
   }
 }
 
@@ -166,8 +165,15 @@ function Start() {
   player = new Player(25, 0, 50, 50, "#FF5858");
   player.Draw();
 
-  scoreText = new Text("Score: " score, 25, 25, "left", "#212121", "20")
-
+  scoreText = new Text("Score: " + score, 25, 25, "left", "#212121", "20");
+  highScoreText = new Text(
+    "Hiscore: " + highScore,
+    canvas.width - 25,
+    25,
+    "right",
+    "#212121",
+    "20"
+  );
 
   requestAnimationFrame(Update);
 }
@@ -194,9 +200,22 @@ function Update() {
 
   for (let i = 0; i < obstacles.length; i++) {
     let o = obstacles[i];
-    // deletes obsticles as they leave the screen
+    // deletes obstacles as they leave the screen
     if (o.x + o.width < 0) {
-        obstacles.splice(i, 1)
+      obstacles.splice(i, 1);
+    }
+    // handle a collision with an obstacle
+    if (
+      player.x < o.x + o.width &&
+      player.x + player.width > o.x &&
+      player.y < o.y + o.height &&
+      player.y + player.height > o.y
+    ) {
+      obstacles = [];
+      score = 0;
+      spawnTimer = initialSpawnTimer;
+      gameSpeed = 3;
+      window.localStorage.setItem("highscore", highScore);
     }
 
     o.Update();
@@ -205,7 +224,14 @@ function Update() {
 
   score++;
   scoreText.text = "Score: " + score;
-  scoreText.Draw()
+  scoreText.Draw();
+
+  if (score > highScore) {
+    highScore = score;
+    highScoreText.text = "Highscore: " + highScore;
+  }
+
+  highScoreText.Draw();
 
   gameSpeed += 0.003;
 }
