@@ -7,7 +7,16 @@ let highScore;
 let player;
 let gravity;
 let gameSpeed;
-let keys = [];
+let keys = {};
+
+//event listeners
+document.addEventListener("keydown", function(evt) {
+  keys[evt.code] = true;
+});
+
+document.addEventListener("keyup", function(evt) {
+  keys[evt.code] = false;
+});
 
 class Player {
   constructor(x, y, width, height, colour) {
@@ -19,10 +28,19 @@ class Player {
     this.jumpForce = 15;
     this.originalHeight = height;
     this.grounded = false;
+    this.jumpTimer = 0;
   }
 
   Animate() {
-
+    // Jump animation
+    if (keys["Space"] || keys["KeyW"]) {
+      this.jumpForce();
+    } else {
+        this.jumpTimer = 0;
+    }
+   
+    this.y += this.dy;
+   
     //Gravity
     if (this.y + this.height < canvas.height) {
       this.dy += gravity;
@@ -32,8 +50,17 @@ class Player {
       this.grounded = true;
       this.y = canvas.height - this.height;
     }
-    this.y += this.dy;
     this.Draw();
+  }
+
+  Jump() {
+    if (this.grounded && this.jumpTimer == 0) {
+      this.jumpTimer = 1;
+      this.dy = -this.jumpForce;
+    } else if (this.jumpTimer > 0 && this.jumpTimer < 15) {
+      this.jumpTimer++;
+      this.dy = -this.jumpForce - (this.jumpTimer / 50);
+    }
   }
 
   Draw() {
@@ -56,7 +83,7 @@ function Start() {
   score = 0;
   highScore = 0;
 
-  player = new Player(25, canvas.height - 150, 50, 50, "#FF5858");
+  player = new Player(25, 0, 50, 50, "#FF5858");
   player.Draw();
 
   requestAnimationFrame(Update);
