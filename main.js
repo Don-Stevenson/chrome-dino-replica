@@ -106,6 +106,19 @@ class Obstacle {
 // game functions
 function SpawnObstacle() {
   let size = RandomIntInRange(20, 70);
+  let type = RandomIntInRange(0, 1);
+  let obstacle = new Obstacle(
+    canvas.width + size,
+    canvas.height - size,
+    size,
+    size,
+    "#2484E4"
+  );
+
+  if (type == 1) {
+    obstacle.y -= player.originalHeight - 10;
+  }
+  obstacles.push(obstacle);
 }
 
 SpawnObstacle();
@@ -131,6 +144,8 @@ function Start() {
 
   requestAnimationFrame(Update);
 }
+
+
 
 function Update() {
   requestAnimationFrame(Update);
