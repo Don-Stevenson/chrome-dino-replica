@@ -36,18 +36,18 @@ class Player {
     if (keys["Space"] || keys["KeyW"]) {
       this.jumpForce();
     } else {
-        this.jumpTimer = 0;
+      this.jumpTimer = 0;
     }
 
     // shrink
-    if(keys['ShiftLeft'] || keys['KeyS'] ){
-        this.height = this.originalHeight / 2
+    if (keys["ShiftLeft"] || keys["KeyS"]) {
+      this.height = this.originalHeight / 2;
     } else {
-        this.height = this.originalHeight
+      this.height = this.originalHeight;
     }
-   
-    this.y += this.dy; this.y += this this.y += this.dy;.dy;
-   
+
+    this.y += this.dy;
+
     //Gravity
     if (this.y + this.height < canvas.height) {
       this.dy += gravity;
@@ -66,7 +66,7 @@ class Player {
       this.dy = -this.jumpForce;
     } else if (this.jumpTimer > 0 && this.jumpTimer < 15) {
       this.jumpTimer++;
-      this.dy = -this.jumpForce - (this.jumpTimer / 50);
+      this.dy = -this.jumpForce - this.jumpTimer / 50;
     }
   }
 
@@ -78,14 +78,40 @@ class Player {
   }
 }
 
-
 class Obstacle {
-    constructor (x, y, width, height, colour) {
-        this.x = x;
+  constructor(x, y, width, height, colour) {
+    this.x = x;
     this.y = y;
+    this.height = height;
     this.width = width;
     this.colour = colour;
-    }
+
+    this.dx = -gameSpeed;
+  }
+
+  Update() {
+    this.x += this.dx;
+    this.Draw();
+    this.dx = -gameSpeed;
+  }
+
+  Draw() {
+    ctx.beginPath();
+    ctx.fillStyle = this.colour;
+    ctx.fillRect = (this.x, this.y, this.width, this.height);
+    ctx.closePath();
+  }
+}
+
+// game functions
+function SpawnObstacle() {
+  let size = RandomIntInRange(20, 70);
+}
+
+SpawnObstacle();
+
+function RandomIntInRange(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
 }
 
 function Start() {
