@@ -38,6 +38,13 @@ class Player {
     } else {
         this.jumpTimer = 0;
     }
+
+    // shrink
+    if(keys['ShiftLeft'] || keys['KeyS'] ){
+        this.height = this.originalHeight / 2
+    } else {
+        this.height = this.originalHeight
+    }
    
     this.y += this.dy;
    
