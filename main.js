@@ -17,7 +17,7 @@ class Player {
     this.colour = colour;
     this.dy = 0;
     this.jumpForce = 15;
-    this.originalHeight = h;
+    this.originalHeight = height;
   }
 
   Draw() {
@@ -48,7 +48,7 @@ function Start() {
 
 function Update() {
     requestAnimationFrame(Update)
-    ctx.clearReact(0,0, canvas.width, canvas.height)
+    ctx.clearRect(0,0, canvas.width, canvas.height)
 
     player.Draw()
     player.x++
