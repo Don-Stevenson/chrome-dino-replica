@@ -46,7 +46,7 @@ class Player {
         this.height = this.originalHeight
     }
    
-    this.y += this.dy;
+    this.y += this.dy; this.y += this this.y += this.dy;.dy;
    
     //Gravity
     if (this.y + this.height < canvas.height) {
@@ -76,6 +76,16 @@ class Player {
     ctx.fillRect = (this.x, this.y, this.width, this.height);
     ctx.closePath();
   }
+}
+
+
+class Obstacle {
+    constructor (x, y, width, height, colour) {
+        this.x = x;
+    this.y = y;
+    this.width = width;
+    this.colour = colour;
+    }
 }
 
 function Start() {
