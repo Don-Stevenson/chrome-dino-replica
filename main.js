@@ -18,6 +18,22 @@ class Player {
     this.dy = 0;
     this.jumpForce = 15;
     this.originalHeight = height;
+    this.grounded = false;
+  }
+
+  Animate() {
+
+    //Gravity
+    if (this.y + this.height < canvas.height) {
+      this.dy += gravity;
+      this.grounded = false;
+    } else {
+      this.dy = 0;
+      this.grounded = true;
+      this.y = canvas.height - this.height;
+    }
+    this.y += this.dy;
+    this.Draw();
   }
 
   Draw() {
@@ -43,15 +59,15 @@ function Start() {
   player = new Player(25, canvas.height - 150, 50, 50, "#FF5858");
   player.Draw();
 
-  requestAnimationFrame(Update)
+  requestAnimationFrame(Update);
 }
 
 function Update() {
-    requestAnimationFrame(Update)
-    ctx.clearRect(0,0, canvas.width, canvas.height)
+  requestAnimationFrame(Update);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    player.Draw()
-    player.x++
+  player.Animate();
+  player.x++;
 }
 
 Start();
