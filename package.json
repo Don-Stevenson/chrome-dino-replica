@@ -1,0 +1,20 @@
+{
+  "name": "chrome-dino-replica",
+  "version": "1.0.0",
+  "description": "A simple replica of the chrome dinosaur game when your internet connection is lost",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Don-Stevenson/chrome-dino-replica.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Don-Stevenson/chrome-dino-replica/issues"
+  },
+  "homepage": "https://github.com/Don-Stevenson/chrome-dino-replica#readme"
+}
