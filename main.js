@@ -26,7 +26,9 @@ class Player {
     this.x = x;
     this.y = y;
     this.width = width;
+    this.height = height;
     this.colour = colour;
+
     this.dy = 0;
     this.jumpForce = 15;
     this.originalHeight = height;
@@ -37,7 +39,7 @@ class Player {
   Animate() {
     // Jump animation
     if (keys["Space"] || keys["KeyW"]) {
-      this.jumpForce();
+      this.jump();
     } else {
       this.jumpTimer = 0;
     }
@@ -108,7 +110,7 @@ class Obstacle {
 
 class Text {
   constructor(text, x, y, alignment, colour, size) {
-    this.t = text;
+    this.text = text;
     this.x = x;
     this.y = y;
     this.alignment = alignment;
@@ -144,8 +146,6 @@ function SpawnObstacle() {
   obstacles.push(obstacle);
 }
 
-SpawnObstacle();
-
 function RandomIntInRange(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -161,10 +161,10 @@ function Start() {
 
   score = 0;
   highScore = 0;
-}
- // handle highscore storage 
-if (localStorage.getItem('highscore')) {
-      highScore = localStorage.getItem('higscore')
+
+  // handle highscore storage
+  if (localStorage.getItem("highscore")) {
+    highScore = localStorage.getItem("higscore");
   }
 
   player = new Player(25, 0, 50, 50, "#FF5858");
@@ -172,7 +172,7 @@ if (localStorage.getItem('highscore')) {
 
   scoreText = new Text("Score: " + score, 25, 25, "left", "#212121", "20");
   highScoreText = new Text(
-    "Hiscore: " + highScore,
+    "Highscore: " + highScore,
     canvas.width - 25,
     25,
     "right",
@@ -191,9 +191,10 @@ function Update() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   spawnTimer--;
+
   if (spawnTimer <= 0) {
     SpawnObstacle();
-    console.log(obstacle());
+    console.log(obstacles);
     spawnTimer = initialSpawnTimer - gameSpeed * 8;
 
     if (spawnTimer < 60) {
@@ -225,6 +226,7 @@ function Update() {
 
     o.Update();
   }
+
   player.Animate();
 
   score++;
