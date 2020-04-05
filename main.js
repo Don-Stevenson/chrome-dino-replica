@@ -167,7 +167,7 @@ function Start() {
     highScore = localStorage.getItem("higscore");
   }
 
-  player = new Player(25, 0, 50, 50, "#FF5858");
+  player = new Player(25, 0, 45, 45, "#FF5858");
   player.Draw();
 
   scoreText = new Text("Score: " + score, 25, 25, "left", "#212121", "20");
@@ -244,3 +244,6 @@ function Update() {
 }
 
 Start();
+
+scoreText = new Text("Score: " + score, 25, 25, "left", "#212121", "20");
+highScoreText = new Text
